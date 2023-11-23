@@ -8,6 +8,7 @@ import { Poppins } from "next/font/google"
 import Link from "next/link"
 import { UserButton } from "@clerk/nextjs"
 import { Button } from "./ui/button"
+import { ModeToggle } from "./mode-toggle"
 
 
 
@@ -32,6 +33,7 @@ export const Navbar = () => {
                     Upgrade
                     <Sparkles className="h-4 w-4 fill-white text-white ml-2"/>
                 </Button>
+                <ModeToggle/>
                 <UserButton/>
             </div>
         </div>
