@@ -1,0 +1,18 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+ //anytime we modify this schema, we need to initiate the command "npx prisma generate" followed by "npx prisma db push"
+
+model Category {
+  id            String @id @default(uuid())
+  name          String
+}
+
