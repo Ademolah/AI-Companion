@@ -28,7 +28,40 @@ export async function GET() {
                 customer: userSubscription.stripeCustomerId,
                 return_url: settingsUrl
             })
+
+            return new NextResponse(JSON.stringify({ URL: stripeSession.url}))
         }
+
+        //if its a user first time subscribing
+        const stripeSession = await stripe.checkout.sessions.create({
+            success_url: settingsUrl,
+            cancel_url: settingsUrl,
+            payment_method_types: ['card','paypal'],
+            mode: "subscription",
+            billing_address_collection: "auto",
+            customer_email: user.emailAddresses[0].emailAddress,
+            line_items: [
+                {
+                    price_data: {
+                        currency: "USD",
+                        product_data: {
+                            name: "Companion Pro",
+                            description: "Create custom AI companion"
+                        },
+                        unit_amount: 999,
+                        recurring: {
+                            interval: "month"
+                        }
+                    },
+                    quantity: 1
+                }
+            ],
+            metadata:{
+                userId
+            }
+        })
+
+        return new NextResponse(JSON.stringify({URL: stripeSession.url}))
         
     } catch (error) {
         console.log('[STRIPE_GET]', error)
