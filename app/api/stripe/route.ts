@@ -29,7 +29,7 @@ export async function GET() {
                 return_url: settingsUrl
             })
 
-            return new NextResponse(JSON.stringify({ URL: stripeSession.url}))
+            return new NextResponse(JSON.stringify({ url: stripeSession.url}))
         }
 
         //if its a user first time subscribing
@@ -61,7 +61,7 @@ export async function GET() {
             }
         })
 
-        return new NextResponse(JSON.stringify({URL: stripeSession.url}))
+        return new NextResponse(JSON.stringify({url: stripeSession.url}))
         
     } catch (error) {
         console.log('[STRIPE_GET]', error)
