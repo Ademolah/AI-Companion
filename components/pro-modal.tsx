@@ -6,7 +6,7 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 
@@ -15,6 +15,11 @@ export const ProModal = () => {
     const {toast} = useToast()
 
     const [loading, setLoading] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+      setIsMounted(true)
+    }, [])
 
     const onSubscribe = async () => {
         try {
@@ -32,6 +37,11 @@ export const ProModal = () => {
             setLoading(false)
         }
     }
+
+    if(!isMounted) {
+      return null
+    }
+    
     return (
         <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
       <DialogContent>
