@@ -22,7 +22,7 @@ export const SubscriptionButton = ({
             const response = await axios.get("/api/stripe")
 
             window.location.href = response.data.url
-            
+
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -34,7 +34,7 @@ export const SubscriptionButton = ({
     }
 
     return (
-        <Button size="sm" variant={isPro ? "default" : "premium"}>
+        <Button onClick={onClick} disabled={loading} size="sm" variant={isPro ? "default" : "premium"}>
             {isPro ? "Manage Subscription" : "Upgrade"}
             {!isPro && <Sparkles className="h-4 w-4 ml-2 fill-white"/>}
         </Button>
